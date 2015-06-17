@@ -1,0 +1,11 @@
+<div class="wall">
+    {{currentCourse.details.title}}
+</div>
+<img class="img img-responsive" ng-src="{{currentCourse.details.image}}" alt=""/>
+
+<div class="progress">
+    <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="{{currentCourse.duration}}"
+         ng-style="{'width':(currentCourseTime/currentCourse.duration) * 100 + '%'}">
+        <span>{{currentCourseTime/currentCourse.duration * 100|number:0}}%</span>
+    </div>
+</div>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="icon"
+          type="image/png"
+          href="img/favicon.ico">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css"/>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.css"/>
+</head>
+<body ng-app="app">
+<div class="container body-content app-container" ng-controller="myctrl">
+    <hello-World tabc="dangerous" def="you are too much dangerous" ></hello-World>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>id</th>
+            <th>name</th>
+            <th>category</th>
+            <th>price</th>
+            <th>expire</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="aproduct in products">
+            <td>{{$index+1}}</td>
+            <td>{{aproduct.name|uppercase}}</td>
+            <td>{{aproduct.category}}</td>
+            <td>{{aproduct.price|addPRice}}</td>
+            <td>{{aproduct.expiry}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<script src="bower_components/jquery/dist/jquery.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+<script src="bower_components/angular/angular.js"></script>
+<script>
+    var myapp = angular.module("app", []);
+    myapp.filter("addPRice", function () {
+        return function (nowPrice) {
+            var myprice = parseFloat(nowPrice);
+            return (myprice + 10);
+
+        }
+    });
+    myapp.directive("helloWorld", function () {
+        return {
+            template: '<div class="alert alert-warning alert-dismissible" role="alert">' +
+            '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>' +
+            '<strong>{{topic}}</strong> {{description}}' +
+            '</div>',
+
+            replace: true,
+            restrict:'EA',
+            scope: {
+                topic: '@tabc',
+                description: '@def'
+            },
+            transclude: true
+        };
+    });
+    myapp.controller("myctrl", function ($scope) {
+        $scope.products = [
+            {name: "Apples", category: "Fruit", price: 1.20, expiry: 10},
+            {name: "Bananas", category: "Fruit", price: 2.42, expiry: 7},
+            {name: "Pears", category: "Fruit", price: 2.02, expiry: 6},
+            {name: "Tuna", category: "Fish", price: 20.45, expiry: 3},
+            {name: "Salmon", category: "Fish", price: 17.93, expiry: 2},
+            {name: "Trout", category: "Fish", price: 12.93, expiry: 4},
+            {name: "Beer", category: "Drinks", price: 2.99, expiry: 365},
+            {name: "Wine", category: "Drinks", price: 8.99, expiry: 365},
+            {name: "Whiskey", category: "Drinks", price: 45.99, expiry: 365}
+        ];
+    });
+</script>
+</body>
+</html>
